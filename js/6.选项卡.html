@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        ul{
+            height: 30px;
+        }
+        li{
+            list-style: none ;
+            float: left;
+            height: 30px;
+            width: 120px;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            background: #cccccc ;
+            color: white;
+        }
+        #content li.first {
+            background: black ;
+        }
+        #content {
+            width: 400px;
+            height: 400px;
+            margin: 50px auto;
+
+        }
+        #content div{
+            width: 400px;
+            height: 300px;
+            background: #cccccc ;
+            position: absolute;
+            display: none;
+            border-top: 1px solid black;
+        }
+        #content div.show{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <ul>
+        <li class="first">111</li>
+        <li>222</li>
+        <li>333</li>
+    </ul>
+    <div class="show">aaa</div>
+    <div>bbb</div>
+    <div>ccc</div>
+</div>
+
+<script>
+    var oLi = document .getElementsByTagName ("li");
+    var oDiv = document .getElementById ('content');
+    var aDiv = oDiv.getElementsByTagName ('div');
+    for(var i=0;i<oLi.length ;i++){
+        oLi[i].xx = i ;
+        oLi[i].onclick = function () {
+            for(var j=0;j<oLi.length ;j++){
+                oLi[j].className = '' ;
+                aDiv[j].className = '';
+            }
+            this.className =  'first';
+            aDiv[this.xx].className = 'show';
+        }
+    }
+</script>
+</body>
+</html>
