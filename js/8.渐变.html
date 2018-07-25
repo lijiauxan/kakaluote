@@ -5,169 +5,145 @@
     <title>Title</title>
     <style>
         *{
-            margin: 0px;
-            padding: 0px;
+            margin: 0;
+            padding: 0;
         }
         li{
-            list-style: none ;
+            list-style: none;
         }
-        #content {
-            margin: 100px auto;
+        #container{
             width: 520px;
             height: 280px;
+            margin: 100px auto;
             position: relative;
         }
-        #content img{
+        #container .imgs img{
             position: absolute;
         }
-        #content .lis li{
-            float: left;
-            height: 20px;
-            width:20px ;
-            margin-left: 10px;
-            text-align: center ;
-            line-height: 20px;
-            background: black ;
-            color: white;
-            cursor: pointer ;
+        #container .imgs img.selected{
+            display: block;
         }
-        #content .lis li.first {
-            background: orange ;
-        }
-        #content .spans span{
-            float: left;
-            height: 20px;
-            width:20px ;
-            margin-left: 10px;
-            text-align: center ;
-            line-height: 20px;
-            background: black ;
-            color: white;
-        }
-        #content .lis{
+        #container .nav{
             position: absolute;
             right: 10px;
             bottom: 10px;
+            z-index: 99999;
         }
-        #content .spans {
+        #container .arrows{
             position: absolute;
             left: 10px;
             bottom: 10px;
-            cursor: pointer ;
+            z-index: 99999;
         }
-        #content .imgs img{
-            opacity: 0;
+        #container .nav li,.arrows span{
+            float: left;
+            width: 20px;
+            height: 20px;
+            background: #000;
+            color: #fff;
+            margin-right: 10px;
+            text-align: center;
+            line-height: 20px;
+            cursor: pointer;
         }
-        #content .imgs img.first {
-            opacity: 1;
+        #container .nav li.selected{
+            background: orange;
         }
-
-
     </style>
 </head>
 <body>
-<div id="content">
+<div id="container">
     <div class="imgs">
-        <img class='first' src="img/1.jpg " alt="">
-        <img src="img/2.jpg " alt="">
-        <img src="img/3.jpg " alt="">
-        <img src="img/4.jpg " alt="">
+        <img class='a selected' src="img/1.jpg" alt="">
+        <img src="img/2.jpg" alt="">
+        <img src="img/3.jpg" alt="">
+        <img src="img/4.jpg" alt="">
     </div>
-    <ul class="lis">
-        <li class="first">1</li>
+    <ul class="nav">
+        <li class="b selected">1</li>
         <li>2</li>
         <li>3</li>
         <li>4</li>
     </ul>
-    <div class="spans">
-        <span>&lt;</span>
-        <span>&gt;</span>
+    <div class="arrows">
+        <span id="prev">&lt;</span>
+        <span id="next">&gt;</span>
     </div>
 </div>
+<script src="jslib.js"></script>
 <script>
-    var x = 0;
-    var aLi = document .getElementsByTagName ('li');
-    var aImg = document .getElementsByTagName ('img');
-    var aSpan = document .getElementsByTagName('span');
-    var aContent = document .getElementById ('content');
+    var aLi = document.getElementsByTagName('li');
+    var aImg = document.getElementsByTagName('img');
+    var oContainer = document.getElementById('container');
+    var oPrev = document.getElementById('prev');
+    var oNext = document.getElementById('next');
+    var nowIndex = 0;
+    var zIndex = 4;
 
-
-
-
-    for(var i=0;i<aLi.length ;i++){
+    for(var i=0;i<aImg.length;i++){
+        aImg[i].style.zIndex = aImg.length - i;
+    }
+    for(var i=0;i<aLi.length;i++){
         aLi[i].index = i;
         aLi[i].onmouseover = function () {
-            xx(this.index)
-
+            nowIndex = this.index;
+            changeImg(this.index);
         }
+        aLi[i].onselectstart = function(){
+            return false;
+        };
+    }
+    oNext.onclick = function(){
+        nowIndex++;
+        if(nowIndex == aLi.length){
+            nowIndex = 0;
+        }
+        changeImg(nowIndex);
+    }
+    oPrev.onclick = function(){
+        nowIndex--;
+        if(nowIndex == -1){
+            nowIndex = aLi.length - 1;
+        }
+        changeImg(nowIndex);
     }
 
-    aSpan[0].onclick = function () {
-        x--;
-        if(x == -1){
-            x = aLi.length - 1 ;
-        }
-        // for(var j=0;j<aLi.length ;j++){
-        //     aLi[j].className = '';
-        //     aImg[j].className = '';
-        // }
-        // aLi[x].className = 'first';
-        // aImg[x].className = 'first';
-        xx(x);
-    }
-
-
-    aSpan[1].onclick = function () {
-        x++;
-        if(x == aLi.length ){
-            x = 0 ;
-        }
-        // for(var j=0;j<aLi.length ;j++){
-        //     aLi[j].className = '';
-        //     aImg[j].className = '';
-        // }
-        // aLi[x].className = 'first';
-        // aImg[x].className = 'first';
-        xx(x);
-    }
-
-    function xx(a){
-        for(var j=0;j<aLi.length ;j++){
+    function changeImg(index){
+        for(var j=0;j<aLi.length;j++){
             aLi[j].className = '';
-            // aImg[j].className = '';
+//                aImg[j].className = '';
         }
-        aLi[a].className = 'first';
-        // aImg[a].className = 'first';
-        aImg[a-1].className = 'first';
-        var timer1 = setInterval (function () {
-            var n = getComputedStyle (aImg[a-1],false ).opacity ;
-            if(n>=0.1){
-                // aImg[a-1].className = 'first';
-                aImg[a-1].style.opacity = n *0.9;
-            }
-            else{
-                aImg[a-1].style.opacity = 0;
-                aImg[a].style.opacity = 1;
-                clearInterval (timer1);
-            }
-
-        },50)
-
+        aLi[index].className = 'selected'
+//            aImg[index].className = 'selected';
+        aImg[index].style.zIndex = ++zIndex;
+        aImg[index].style.opacity = 0;
+        animate(aImg[index],{opacity:100});
+//            aLi[index].className = 'selected';
+        //
     }
 
-    aContent .onmouseover = function (){
-        clearInterval (timer);
+    oContainer.onmouseover = function () {
+        clearInterval(timer);
     }
-    aContent .onmouseout = function (){
+    oContainer.onmouseout = function () {
         play();
     }
 
-    play();
-    function play() {
-        timer = setInterval (function () {
-            aSpan[1].onclick();
-        },1000)
+    //        function fn() {
+    //            oNext.onclick();
+    //        }
+    var fn = function(){
+        oNext.onclick();
     }
+    play();
+
+    function play(){
+        timer = setInterval(fn,1000);
+    }
+
+
+
+
 
 
 

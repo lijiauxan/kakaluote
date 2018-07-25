@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            list-style: none ;
+        }
+        #content {
+            width: 440px;
+            height: 200px;
+            border: 1px solid black;
+            margin: 100px auto;
+            position: relative;
+            overflow: hidden;
+        }
+        #wrapper{
+            position: absolute;
+            left: -440px;
+            width: 880px;
+
+        }
+        #wrapper li{
+            float: left;
+            width: 100px;
+            height: 80px;
+            text-align: center ;
+            line-height: 80px;
+            background: black ;
+            color: white;
+            margin-right: 10px;
+
+        }
+        #div1,#div2{
+            position: absolute;
+            bottom: 10px;
+            left: 130px;
+            width: 60px;
+            height: 40px;
+            background: #cccccc ;
+            text-align: center ;
+            line-height: 40px;
+            margin-right: 20px;
+
+        }
+        #div2{
+            left: 230px;
+        }
+    </style>
+</head>
+<body>
+ <div id="content">
+     <ul id="wrapper">
+         <li id="li1">1</li>
+         <li>2</li>
+         <li>3</li>
+         <li>4</li>
+         <li>1</li>
+         <li>2</li>
+         <li>3</li>
+         <li>4</li>
+     </ul>
+     <div id="div1">
+         向左
+     </div>
+     <div id="div2">
+         向右
+     </div>
+ </div>
+ <script src="jslib.js"></script>
+ <script>
+         // var timer = setInterval (function () {
+         //     var aWrapper = document .getElementById ('wrapper');
+         //     var lf = getComputedStyle (aWrapper,false ).left ;
+         //     var aLi =  document .getElementById ('li1');
+         //     var w = getComputedStyle (aLi,false).width ;
+         //     lf = parseInt(lf) - parseInt(w)/10 ;
+         //     if(lf == -440){
+         //         aWrapper .style .left = 0 + 'px' ;
+         //     }
+         //     else{
+         //         aWrapper .style .left = lf + 'px' ;
+         //     }
+         // },100)
+         var timer;
+         var timer = setInterval (function () {
+             var aWrapper = document .getElementById ('wrapper');
+             var lf = getComputedStyle (aWrapper,false ).left ;
+             var aLi =  document .getElementById ('li1');
+             var w = getComputedStyle (aLi,false).width ;
+             lf = parseInt(lf) + 1;
+             if(lf == 0){
+                 aWrapper .style .left = -440 + 'px' ;
+             }
+             else{
+                 aWrapper .style .left = lf + 'px' ;
+             }
+         },10)
+
+
+
+
+         var aDiv = document .getElementById ('div1');
+         aDiv.onclick = function () {
+               clearInterval (timer);
+
+               timer = setInterval (function () {
+               var aWrapper = document .getElementById ('wrapper');
+               var lf = getComputedStyle (aWrapper,false ).left ;
+               var aLi =  document .getElementById ('li1');
+               var w = getComputedStyle (aLi,false).width ;
+               lf = parseInt(lf) - 1 ;
+               if(lf == -440){
+                   aWrapper .style .left = 0 + 'px' ;
+               }
+               else{
+                   aWrapper .style .left = lf + 'px' ;
+               }
+           },10)
+       }
+
+       var bDiv = document .getElementById ('div2');
+             bDiv.onclick =function () {
+
+                 clearInterval (timer);
+                     timer = setInterval (function () {
+                     var aWrapper = document .getElementById ('wrapper');
+                     var lf = getComputedStyle (aWrapper,false ).left ;
+                     var aLi =  document .getElementById ('li1');
+                     var w = getComputedStyle (aLi,false).width ;
+                     lf = parseInt(lf) + 1 ;
+                     if(lf == 0){
+                         aWrapper .style .left = -440 + 'px' ;
+                     }
+                     else{
+                         aWrapper .style .left = lf + 'px' ;
+                     }
+                 },10)
+         }
+ </script>
+</body>
+</html>
