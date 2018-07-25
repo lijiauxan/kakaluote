@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            list-style: none ;
+        }
+        #content {
+            margin: 100px auto;
+            width: 520px;
+            height: 280px;
+            position: relative;
+            overflow: hidden;
+        }
+        #content img{
+            /*position: absolute;*/
+            float: left;
+        }
+        #content .imgs{
+            /*position: absolute;*/
+            width: 2080px;
+            position: absolute;
+            left: 0px;
+        }
+        #content .lis li{
+            float: left;
+            height: 20px;
+            width:20px ;
+            margin-left: 10px;
+            text-align: center ;
+            line-height: 20px;
+            background: black ;
+            color: white;
+            cursor: pointer ;
+        }
+        #content .lis li.first {
+            background: orange ;
+        }
+        #content .spans span{
+            float: left;
+            height: 20px;
+            width:20px ;
+            margin-left: 10px;
+            text-align: center ;
+            line-height: 20px;
+            background: black ;
+            color: white;
+        }
+        #content .lis{
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+        #content .spans {
+            position: absolute;
+            left: 10px;
+            bottom: 10px;
+            cursor: pointer ;
+        }
+        /*#content .imgs img{*/
+            /*display: none;*/
+        /*}*/
+        /*#content .imgs img.first {*/
+            /*display: block;*/
+        /*}*/
+
+
+    </style>
+</head>
+<body>
+<div id="content">
+    <div class="imgs" id="img-content">
+        <img class='first' src="img/1.jpg " alt="">
+        <img src="img/2.jpg " alt="">
+        <img src="img/3.jpg " alt="">
+        <img src="img/4.jpg " alt="">
+    </div>
+    <ul class="lis">
+        <li class="first">1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+    <div class="spans">
+        <span>&lt;</span>
+        <span>&gt;</span>
+    </div>
+</div>
+<script src="jslib.js"></script>
+<script>
+    var x = 0;
+    var aLi = document .getElementsByTagName ('li');
+    var aImg = document .getElementsByTagName ('img');
+    var aSpan = document .getElementsByTagName('span');
+    var aContent = document .getElementById ('content');
+    var aImgCon = document .getElementById ('img-content');
+
+
+
+
+    for(var i=0;i<aLi.length ;i++){
+        aLi[i].index = i;
+        aLi[i].onmouseover = function () {
+            x = this.index;
+            xx(this.index)
+
+        }
+    }
+
+    aSpan[0].onclick = function () {
+        x--;
+        if(x == -1){
+            x = aLi.length - 1 ;
+        }
+        // for(var j=0;j<aLi.length ;j++){
+        //     aLi[j].className = '';
+        //     aImg[j].className = '';
+        // }
+        // aLi[x].className = 'first';
+        // aImg[x].className = 'first';
+        xx(x);
+    }
+
+
+    aSpan[1].onclick = function () {
+        x++;
+        if(x == aLi.length ){
+            x = 0 ;
+        }
+        // for(var j=0;j<aLi.length ;j++){
+        //     aLi[j].className = '';
+        //     aImg[j].className = '';
+        // }
+        // aLi[x].className = 'first';
+        // aImg[x].className = 'first';
+        xx(x);
+    }
+
+    function xx(a){
+        for(var j=0;j<aLi.length ;j++){
+            aLi[j].className = '';
+            // aImg[j].className = '';
+        }
+        aLi[a].className = 'first';
+        // aImg[a].className = 'first';
+        animate(aImgCon,{left:-aImg[0].offsetWidth * a});
+    }
+
+    aContent .onmouseover = function (){
+        clearInterval (timer);
+    }
+    aContent .onmouseout = function (){
+        play();
+    }
+
+    play();
+    function play() {
+        timer = setInterval (function () {
+            aSpan[1].onclick();
+        },1000)
+    }
+
+
+
+
+</script>
+</body>
+</html>
