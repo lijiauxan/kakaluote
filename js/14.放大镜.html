@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        #small ,#big{
+            width: 400px;
+            height: 400px;
+            float: left;
+            position: relative;
+            overflow: hidden;
+        }
+        #small img{
+            width: 400px;
+            height: 400px;
+            position: absolute;
+        }
+        #big img{
+            width: 800px;
+            height: 800px;
+            position: absolute;
+            display: none;
+        }
+        #drag {
+            width: 200px;
+            height: 200px;
+            background: #ccc;
+            opacity: .5;
+            position: absolute;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="small">
+    <img src="img/wang1.jpg" alt="">
+    <div id="drag">
+
+    </div>
+</div>
+<div id="big">
+    <img src="img/wang1.jpg" alt="">
+</div>
+
+<script>
+    var aSmall = document .getElementById ('small');
+    var aDrag = document .getElementById ('drag');
+    var aBig = document .getElementById ('big');
+    var aImg = aBig .getElementsByTagName ('img')[0];
+    aSmall.onmouseover = function () {
+        aDrag.style .display = 'block';
+        aImg.style .display = 'block';
+           aSmall .onmousemove = function (e) {
+               e = e || window .event ;
+               var ileft = e.clientX - aDrag.offsetWidth / 2 ;
+               var itop = e.clientY -aDrag .offsetHeight / 2 ;
+               if(ileft > aSmall .offsetWidth - aDrag.offsetWidth ){
+                   ileft = aSmall .offsetWidth - aDrag.offsetWidth
+               }
+               else if(ileft < 0){
+                   ileft = 0
+               }
+               if(itop > aSmall .offsetHeight - aDrag.offsetHeight ){
+                   itop = aSmall .offsetHeight - aDrag.offsetHeight
+               }
+               else if(itop < 0){
+                   itop = 0
+               }
+
+               //    aDrag.offsetWidth/aSmall .offsetWidth = aBig .offsetWidth/aImg.offsetWidth
+
+               var xxx = ileft / (aSmall.offsetWidth - aDrag.offsetWidth);
+               var bigX = xxx * (aImg.offsetWidth - aBig.offsetWidth);
+
+               var yyy = itop / (aSmall.offsetHeight - aDrag.offsetHeight);
+               var bigY = yyy * (aImg.offsetHeight - aBig.offsetHeight);
+
+               aImg.style.left = -bigX +'px';
+               aImg.style.top = -bigY +'px';
+
+
+               aDrag.style .left = ileft + 'px';
+               aDrag.style .top = itop + 'px';
+           }
+
+
+    }
+
+
+    aSmall.onmouseout = function () {
+        aDrag.style .display = 'none';
+        aImg.style .display = 'none';
+    }
+</script>
+</body>
+</html>
