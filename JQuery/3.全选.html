@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>
+    以下哪些是你喜欢的蔬菜？
+</h2>
+<input type="checkbox">娃娃菜
+<input type="checkbox">娃娃菜
+<input type="checkbox">娃娃菜
+<input type="checkbox">娃娃菜
+<input type="checkbox">娃娃菜
+<br/>
+<button id="all">全选</button>
+<button id="no">全不选</button>
+<button id="inverse">反选</button>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    $('#all').on('click',function () {
+        $('input[type = "checkbox" ]').prop('checked',true );
+    })
+    $('#no').on('click',function () {
+        $('input[type = "checkbox" ]').prop('checked',false );
+    })
+    $('#inverse').on('click',function () {
+        $('input[type="checkbox"]').each(function (index,elem) {
+
+            elem.checked = !elem.checked ;
+        })
+    })
+</script>
+</body>
+</html>
