@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+        }
+        #container img{
+            box-sizing: border-box;
+            width: 25%;
+            border: 4px solid black;
+            float: left;
+            height: 300px;
+
+        }
+        #big-img{
+            position: absolute;
+            top:0px;
+            left:0px;
+            right:0px;
+            bottom: 0px;
+            /*background-image: url("img/1.jpg") ;*/
+            background-repeat: no-repeat ;
+            background-position: center ;
+            background-size: contain ;
+            background-color: black;
+            display: none;
+
+        }
+
+    </style>
+</head>
+<body>
+<div id="container"></div>
+<div id="big-img"></div>
+<script src="zepto.js"></script>
+<script src="touch.js"></script>
+<script>
+
+    $(function () {
+        var str ='';
+        var iNow ;
+        for(i=1;i<25;i++){
+         str += '<img src="img/'+i+'.jpg ">'
+        }
+        $('#container').append (str);
+
+        $('#container').on('tap','img',function () {
+            iNow = $(this).index();
+            $('#container').hide ();
+            $('#big-img').css('background-image','url(img/'+($(this).index()+1)+'.jpg)').show();
+            // $('#big-img').show();
+        })
+        $('#big-img').on('tap',function () {
+            $('#big-img').hide();
+            $('#container').show ();
+        }).on('swipeLeft',function () {
+            iNow++;
+            if(iNow == 24){
+                alert ('已经是最后一张了');
+                iNow = 23 ;
+            }
+            $('#big-img').css('background-image','url(img/'+(iNow+1)+'.jpg)');
+        }).on('swipeRight',function () {
+            iNow--;
+            if(iNow == -1){
+                alert ('没有上一张了');
+                iNow = 0 ;
+            }
+            $('#big-img').css('background-image','url(img/'+(iNow+1)+'.jpg)');
+        })
+    })
+
+
+
+
+
+</script>
+</body>
+</html>

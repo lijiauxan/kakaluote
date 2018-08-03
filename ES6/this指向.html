@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    function fn(a,b){
+        console.log(a,b);
+        console.log(this);
+    }
+
+    var o = {
+        name:'zs'
+    }
+
+    //    fn.call(o,1);
+    //    var arr = [1,2];
+    //    fn.apply(o,arr);
+
+    var f = fn.bind(o,1,2);
+    f();
+    //   fn();
+
+
+    //改变this指向问题   1.箭头函数   2.call 3.apply  数组  4.bind 不调用
+</script>
+</body>
+</html>

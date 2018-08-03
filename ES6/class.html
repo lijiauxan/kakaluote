@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class People{
+        constructor (){
+            this.name = 'zs'
+    }
+    say(){
+        console.log(this.name);
+    }
+    }
+
+    var x = new People();
+    console.log(x.name);
+    x.say();
+
+    class Son extends People(){
+        constructor (){
+            super();
+        }
+        eat(){
+            console.log('xxx');
+        }
+    }
+
+    var a = new Son();
+    console.log(a.name);
+</script>
+</body>
+</html>
