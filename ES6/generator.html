@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script src="jquery-1.12.4.js"></script>
+<script>
+    function request(url) {
+        $.get(url,res=>{
+            console.log(res);
+        })
+    }
+    function* xx() {
+        yield request('a.json');
+        yield request('b.json');
+        yield request('c.json');
+    }
+
+    var p = xx();
+    var a = p.next();
+
+
+    //    function* fn(){
+    //        var x =  2 * (yield 3+5);
+    //        var y = yield x / 4;
+    //        return y;
+    //    }
+
+    //    var gen = fn();
+    //    var a =gen.next());
+    //    console.log(gen.next(a.value));
+    //    console.log(gen.next(3));
+</script>
+</body>
+</html>
