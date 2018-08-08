@@ -1,0 +1,17 @@
+$color:#ccc;
+#div1{
+  background: $color;
+}
+#div2{
+  font-size: 16px;
+  a{
+    width: 20px;
+    &:hover{
+      color:red;
+    }
+    &-test{
+      height: 10px;
+    }
+  }
+
+}

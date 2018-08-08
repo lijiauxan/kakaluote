@@ -1,0 +1,19 @@
+#div1{
+    width: 400px;
+    height: 400px;
+    background-image: url("../img/xx.jpg");
+    background-size: contain ;
+}
+
+@keyframes xxx  {
+    
+}
+
+.wrapper {
+
+}
+
+#div10{
+ width: 100px;
+    height: 100px;
+}
