@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="val">
+    <button @click="fn">加入</button>
+    <ul>
+        <li v-for="val in (sort,filterarr)" @click="ff"  :style="[styleArr1]">
+            {{val}}
+        </li>
+    </ul>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            styleArr1:{
+                color: 'black',
+            },
+            arr:[],
+            val:'',
+        },
+        methods:{
+             fn(){
+                 this.arr.push (this.val);
+                 this.val="";
+             },
+            ff(){
+                 this. styleArr1.color = "black";
+                 event.target.style.color = 'red';
+            }
+        },
+        computed:{
+            sort(){
+
+                return this.arr.sort();
+            },
+            filterarr: function () {
+                var val = this.val;
+                var arr = this.arr;
+                return arr.filter(function (item) {
+                    return item.indexOf(val) != -1
+                });;
+            }
+            }
+    })
+
+
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            background-color: #63a35c;
+            width: 200px;
+            margin-bottom: 10px;
+            height: 30px;
+            text-align: center ;
+            line-height: 30px;
+            list-style: none ;
+        }
+        span{
+            font-size: xx-large;
+        }
+        #app{
+            margin: 100px auto;
+            width: 200px;
+        }
+        #app .div1{
+
+            width: 200px;
+            text-align: center ;
+        }
+        h6{
+            float: left;
+            padding-right: 80px;
+        }
+        .red{
+            background-color: #ff0036;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="div1">
+        <span>services</span>
+    </div>
+
+    <ul>
+        <li v-for="val in str" @click="gRed(val)" :class="{red:val.isR}">
+            商品名:{{val.name}}     价格:{{val.money}}
+        </li>
+    </ul>
+    ________________________________________
+    <div>
+         <h6>total</h6>
+         <h6>{{msg}}</h6>
+    </div>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            str:[{
+                name:'aaa',
+                money:3,
+                isR:false
+            },{
+                name:'bbb',
+                money:6,
+                isR:false
+            },{
+                name:'ccc',
+                money:4,
+                isR:false
+            },{
+                name:'ddd',
+                money:2,
+                isR:false
+            },{
+                name:'ccc',
+                money:9,
+                isR:false
+            }],
+            msg:0
+        },
+        methods:{
+            gRed(a){
+               a.isR= !a.isR;
+               if(a.isR ==true){
+                   this.msg += a.money ;
+               }
+               else{
+                   this.msg -= a.money * 1;
+               }
+            }
+        }
+    })
+
+
+
+</script>
+
+</body>
+</html>

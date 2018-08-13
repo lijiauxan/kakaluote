@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 400px;
+            height: 400px;
+            background:#a71d5d ;
+        }
+        #div2{
+            width: 200px;
+            height: 200px;
+            background:#0086b3  ;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="fun(2)">按钮</button>
+    {{msg}}
+    <div id="div1" @click="click1">
+        <div id="div2" @click.stop="click2">
+        </div>
+    </div>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:0,
+
+        },
+        methods:{
+            fun(a){
+                this.msg += a;
+            },
+            click1(){
+                console.log(11111);
+            },
+            click2(){
+                console.log(22222);
+                //                event.stopPropagation();//阻止事件传播
+               //                event.preventDefault();//阻止默认行为
+            }
+        }
+    })
+</script>
+</body>
+</html>
