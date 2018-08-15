@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #container {
+            margin: 100px auto ;
+            height: 300px;
+            width: 400px;
+            background-color: #e7e1cd;
+        }
+        #header {
+            height: 30px;
+            line-height: 30px;
+            background-color: #FFF38F;
+        }
+        #header .span{
+            float: right;
+        }
+        .body{
+            padding: 80px 0px;
+
+        }
+        .body button{
+            margin-left: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="zc">注册</button>
+    <button @click="dl">登录</button>
+    <bd tital="登录" v-show="isDshow"  @close="close">
+        <div class="body">
+            账号:<input type="text">
+            <br>
+            密码:<input type="password">
+            <br>
+            <input type="submit">
+            <input type="reset">
+        </div>
+    </bd>
+    <bd tital="注册" v-show="isZshow" @close="close">
+        <div class="body">
+            账号:<input type="text">
+            <br>
+            密码:<input type="password">
+            <br>
+            确认:<input type="password">
+            <br>
+            <input type="submit">
+            <input type="reset">
+        </div>
+    </bd>
+
+</div>
+<script type="text/x-template" id="my-dialog">
+    <div id="container">
+        <div id="header">
+            <span>{{tital}}</span>
+            <span class="span" @click="$emit('close')">[X]</span>
+        </div>
+        <slot>
+
+        </slot>
+    </div>
+</script>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            isZshow: false,
+            isDshow: false
+        },
+        components:{
+            bd:{
+                template :"#my-dialog",
+                props:['tital']
+            }
+        },
+        methods:{
+            zc(){
+                this.isZshow=true;
+                this.isDshow=false
+            },
+            dl(){
+                this.isDshow=true;
+                this.isZshow=false
+            },
+            close(){
+                this.isDshow=false;
+                this.isZshow=false
+            }
+        }
+    })
+</script>
+</body>
+</html>

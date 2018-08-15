@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app">
+    <demo x-ms="456" :y-ms="m1">
+        <!--<p slot="p1">11111111111111</p>-->
+        <p slot="p2">22222222222222</p>
+    </demo>
+    <demo x-ms="123" :y-ms="m2"></demo>
+</div>
+<script type="text/x-template" id="l1">
+    <div>
+        {{xMs}}
+        <slot name="p1">
+            <p>我是初始</p>
+        </slot>
+        <h1>{{yMs}}</h1>
+        <slot name="p2">
+
+        </slot>
+    </div>
+</script>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            m1: '66666666',
+            m2: '7777777',
+        },
+        components:{
+            demo:{
+                template:"#l1",
+                props:["xMs","yMs"]
+            },
+
+        }
+    })
+</script>
+</body>
+</html>

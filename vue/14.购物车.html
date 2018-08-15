@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td{
+            border: 1px solid #000;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<button>添加商品</button>
+    <table>
+        <thead>
+        <tr>
+            <th v-for="val in arr">
+            {{val}}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(xx,index) in str">
+            <td>
+                <input type="checkbox" v-model="pp" :value="xx">
+            </td>
+            <td>
+                {{xx.name}}
+            </td>
+            <td>
+                {{xx.money}}
+            </td>
+            <td>
+                <button @click="sub(xx)">-</button>
+                <input type="text" v-model="xx.key">
+                <button @click="xx.key++">+</button>
+            </td>
+            <td>
+                {{xx.money*xx.key}}
+
+            </td>
+            <td>
+                <button @click="fn(index,xx)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <td colspan="4">
+        </td>
+        <td>
+            总计：<span id="total">{{total}}</span>
+        </td>
+        <td>
+            <button>结账</button>
+        </td>
+        </tfoot>
+        </thead>
+    </table>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            arr:["","商品信息","商品金额","商品数量","总金额","编辑"],
+            str:[{
+                name:'黄鹤楼',
+                money:19,
+                key:0,
+
+            },{
+                name:'加多宝',
+                money:8,
+                key:0,
+
+            }],
+            pp:[]
+
+        },
+        methods:{
+            fn(index,xx){
+                this.str.splice(index,1);
+                this.pp.splice (  this.pp.indexOf (xx),1);
+
+            },
+            sub(a){
+                if(a.key>0){
+                    (a.key)--
+                }
+            }
+        },
+        computed :{
+            total(){
+                sum = 0;
+                this.pp.forEach ((elem)=>{
+                    sum += elem.money* elem.key
+                })
+                return sum;
+            }
+        }
+
+
+    })
+</script>
+</body>
+</html>
