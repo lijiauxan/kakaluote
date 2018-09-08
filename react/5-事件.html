@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="root">
+
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+    //有状态组件
+    class Welcome extends React.Component{
+        constructor(props) {
+            super(props);
+            this.state = {
+                count:0
+            }
+        }
+        add(num,event){
+           console.log(this);
+           console.log(event.target.value);
+           console.log(num);
+        }
+        render(){
+            return (
+                <div>
+                    <button value="xx" onClick={this.add.bind(this,1)}>click</button>
+                    <h1>{this.props.name } {this.state.count}</h1>
+                </div>
+            )
+        }
+    }
+
+    ReactDOM.render(
+        <Welcome name="xx"  description="xxxxxxxssss">666</Welcome>,
+        document.getElementById('root')
+    );
+
+
+
+</script>
+
+
+
+</body>
+</html>

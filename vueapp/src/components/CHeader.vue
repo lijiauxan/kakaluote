@@ -14,7 +14,7 @@ export default {
     .header{
         height: 1rem;
         width: 100%;
-
+        z-index: 1;
         color: #fff;
         position:fixed;
         top:0;

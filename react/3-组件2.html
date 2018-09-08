@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root">
+2222222222222222222
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+    class Welcome extends React.Component{
+        constructor (props){
+            super(props);
+            this.xx = "123";
+        }
+        render(){
+            return (
+                <div>
+                    <p>
+                        {this.props.name}
+                    </p>
+                    <h4>
+                        {this.props.age}
+                    </h4>
+                    <p>
+                        {this.xx}
+                    </p>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+         <div>
+             <Welcome name="xx" age="gg"> bb </Welcome>
+             <Welcome name="xx" age="gg"> bb </Welcome>
+         </div>,
+        document.getElementById('root')
+    );
+</script>
+</body>
+</html>
