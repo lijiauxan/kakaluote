@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="root">
+
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+  class Main extends React.Component{
+      constructor(props){
+          super(props);
+          this.state = {
+              msg : "商品列表",
+          }
+      }
+      change(arg){
+          console.log(111);
+           this.setState({
+               msg:arg
+           })
+      }
+      render(){
+          return(
+              <div>
+                  <h4 onClick={this.change.bind(this)}>{this.state.msg}</h4>
+                  <Product name="雪糕" myClick={this.change.bind(this)}></Product>
+                  <Product name="面包"></Product>
+              </div>
+          )
+      }
+  }
+
+  class Product extends React.Component{
+      constructor(props){
+          super(props);
+          this.state = {
+               arg:"传值更改"
+          }
+      }
+      render(){
+          return(
+              <p onClick={()=>{ this.props.myClick(this.state.arg) }}>{this.props.name}</p>
+          )
+
+
+      }
+  }
+
+  ReactDOM.render(
+      <Main></Main>,
+      document.getElementById('root')
+  )
+
+
+
+
+
+</script>
+</body>
+</html>

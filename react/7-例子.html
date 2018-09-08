@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="root">
+
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+  class Main extends React.Component{
+      constructor(props){
+          super(props);
+          this.state = {
+            msg:100
+          }
+      }
+      change(a){
+          if(this.state.msg < a ){
+              alert ("士兵数量不足，无法调用");
+          }
+          else{
+              this.setState({
+                  msg:this.state.msg-a,
+
+              })
+          }
+      }
+      render(){
+          return(
+              <div>
+                  <p>剩余士兵数量:{this.state.msg}</p>
+                  <TB name="a" myClick={this.change.bind(this)} value={10} xx={this.state.msg}></TB>
+                  <TB name="b" myClick={this.change.bind(this)} value={20} xx={this.state.msg}></TB>
+              </div>
+          )
+      }
+  }
+
+  class TB extends React.Component{
+      constructor(props){
+          super(props);
+          this.state = {
+              arg:100,
+              // num:10,
+              // xxx:20
+          }
+      }
+      change(){
+          if(this.props.xx<this.props.value){
+              arg:this.state.arg
+          }
+          else{
+              this.setState({
+                  arg:this.state.arg + this.props.value
+              })
+          }
+          // this.setState({
+          //     arg:this.state.arg + this.props.value
+          // })
+      }
+      render(){
+          return(
+              <div>
+                  <p>将军{this.props.name}有士兵:{this.state.arg}</p>
+                  <button onClick={()=>{this.props.myClick(this.props.value),this.change.bind(this)()}}>调兵</button>
+              </div>
+          )
+      }
+  }
+
+
+  ReactDOM.render(
+      <Main></Main>,
+      document.getElementById('root')
+  )
+
+
+</script>
+</body>
+</html>
