@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            list-style: none ;
+        }
+        #container {
+            width: 700px;
+            height: 400px;
+            background: #eaffea ;
+            margin: 50px auto;
+        }
+        #container h1{
+            text-align: center ;
+        }
+        .rw input{
+            width:250px;
+            height: 20px;
+            margin-left:30px;
+        }
+        .rw span{
+            margin-left:200px;
+            color: #0086b3;
+        }
+        .rw button{
+            margin-left:200px;
+            background: #e7e1cd ;
+            color: #0086b3;
+        }
+        .list button{
+            margin-left: 400px;
+        }
+        .list input{
+            margin-left: 10px;
+        }
+        .list li{
+            border: 1px solid #ffcccc;
+            background: #FFF38F ;
+            width: 500px;
+            height: 30px;
+            margin-left:100px;
+            line-height: 30px;
+            margin-top:4px;
+        }
+        .list li:first-child {
+            margin-top:40px;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+    class Main extends React.Component{
+       constructor(props){
+           super(props);
+           this.state = {
+               arr:['吃饭','睡觉','看书'],
+               // str:['吃饭','睡觉','看书']
+           }
+       }
+       add(m){
+           this.setState({
+               arr:m
+           })
+       }
+        sub(m){
+            this.setState({
+                arr:m
+            })
+        }
+       render(){
+           return(
+               <div id="container">
+                   <h1>todoList</h1>
+                   <RW arr={this.state.arr} myClick={this.add.bind(this)}></RW>
+                   <List arr={this.state.arr} myClick={this.sub.bind(this)}></List>
+               </div>
+           )
+       }
+    }
+    class RW extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                msg:''
+            }
+        }
+        save(){
+            // this.setState({
+            //     msg: this.refs.xx.value
+            // });
+            // console.log(this.refs.xx.value);
+            let str = this.props.arr;
+            str.push(this.refs.xx.value);
+            this.refs.xx.value = '';
+            this.props.myClick(str);
+        }
+        render(){
+            return(
+                <div className="rw">
+                   <span>任务：</span>
+                    <input type="text" defaultValue={this.state.msg} ref="xx"/>
+                    <br/>
+                    <button onClick={this.save.bind(this)}>保存任务</button>
+                </div>
+            )
+        }
+    }
+    class List extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+              checked:false
+            }
+        }
+        del(index){
+            let str = this.props.arr;
+            str.splice(index,1);
+            this.props.myClick(str);
+        }
+        change(){
+
+                if(this.state.checked == true ){
+                     this.setState({
+                         checked:false
+                     })
+                }
+                else{
+                    this.setState({
+                        checked:true
+                    })
+                }
+
+        }
+        render(){
+            return(
+                <ul className="list">
+                    {
+                        this.props.arr.map((ele,index)=>{
+                            return<li key={index}>
+                                <input type="checkbox" checked={this.state.checked} onClick={this.change.bind(this)}/>
+                                <span>{ele}</span>
+                                <button onClick={this.del.bind(this,index)}>删除</button>
+                            </li>
+                        })
+                    }
+                </ul>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Main></Main>,
+        document.getElementById('root')
+    );
+
+</script>
+</body>
+</html>

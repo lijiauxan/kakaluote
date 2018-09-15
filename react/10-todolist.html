@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            list-style: none ;
+        }
+        #container {
+            width: 700px;
+            height: 400px;
+            background: #eaffea ;
+            margin: 50px auto;
+        }
+        #container h1{
+            text-align: center ;
+        }
+        .rw input{
+            width:250px;
+            height: 20px;
+            margin-left:30px;
+        }
+        .rw span{
+            margin-left:200px;
+            color: #0086b3;
+        }
+        .rw button{
+            margin-left:200px;
+            background: #e7e1cd ;
+            color: #0086b3;
+        }
+        .list button{
+            margin-left: 400px;
+        }
+        .list input {
+            margin-left: 10px;
+        }
+        /*.list li{*/
+        /*border: 1px solid #ffcccc;*/
+        /*background: #FFF38F ;*/
+        /*width: 500px;*/
+        /*height: 30px;*/
+        /*margin-left:100px;*/
+        /*line-height: 30px;*/
+        /*margin-top:4px;*/
+        /*}*/
+        .xx{
+             border: 1px solid #ffcccc;
+             background: #FFF38F ;
+             width: 500px;
+             height: 30px;
+             margin-left:100px;
+             line-height: 30px;
+             margin-top:4px;
+         }
+        .xxb{
+            border: 1px solid #666666;
+            background: #63a35c  ;
+            width: 500px;
+            height: 30px;
+            margin-left:100px;
+            line-height: 30px;
+            margin-top:4px;
+        }
+        .list li:first-child {
+            margin-top:40px;
+        }
+        #container .Mspan{
+            color: #795da3;
+            margin-left:100px;
+
+
+        }
+        #container .Mp{
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div id="root">
+
+</div>
+<script src="react.development.js"></script>
+<script src="react-dom.development.js"></script>
+<script src="browser.min.js"></script>
+<script type="text/babel">
+    class Main extends React.Component{
+       constructor(props){
+           super(props);
+           this.state = {
+               arr:[
+                   {
+                       name:'吃饭',
+                       checked:false
+                   },
+                   {
+                       name:'睡觉',
+                       checked:false
+                   },
+                   {
+                       name:'看书',
+                       checked:false
+                   },
+               ],
+
+               num:0
+
+               // str:['吃饭','睡觉','看书']
+           }
+       }
+       add(m){
+           this.setState({
+               arr:m,
+
+           })
+       }
+        sub(m){
+            let checkedArr = m.filter(function (item) {
+                return item.checked !=false ;
+            })
+            this.setState({
+                arr:m,
+                num:checkedArr.length
+
+            })
+        }
+        change(x){
+            let checkedArr = x.filter(function (item) {
+                return item.checked !=false ;
+            })
+           this.setState({
+               arr:x,
+               num:checkedArr.length
+           })
+        }
+
+       render(){
+           return(
+               <div id="container">
+                   <h1>todoList</h1>
+                   <RW arr={this.state.arr} myClick={this.add.bind(this)}></RW>
+                   <List arr={this.state.arr} myClick={this.sub.bind(this)} xxClick={this.change.bind(this)}></List>
+                   <span className="Mspan">{this.state.num}已经完成/全部:{this.state.arr.length}
+                       </span>
+
+
+
+               </div>
+           )
+       }
+    }
+    class RW extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+                msg:''
+            }
+        }
+        save(){
+            // this.setState({
+            //     msg: this.refs.xx.value
+            // });
+            // console.log(this.refs.xx.value);
+            let str = this.props.arr;
+            str.push({name:this.refs.xx.value,checked:false});
+            this.refs.xx.value = '';
+            this.props.myClick(str);
+        }
+        render(){
+            return(
+                <div className="rw">
+                   <span>任务：</span>
+                    <input type="text" defaultValue={this.state.msg} ref="xx"/>
+                    <br/>
+                    <button onClick={this.save.bind(this)}>保存任务</button>
+                </div>
+            )
+        }
+    }
+    class List extends React.Component{
+        constructor(props){
+            super(props);
+            this.state = {
+
+            }
+        }
+        del(index){
+            let str = this.props.arr;
+            str.splice(index,1);
+            this.props.myClick(str);
+        }
+        change(index){
+            let xxx=this.props.arr;
+            xxx[index].checked = ! xxx[index].checked
+            this.props.xxClick(xxx);
+        }
+        render(){
+            return(
+                <div>
+                    <ul className="list">
+                        {
+                            this.props.arr.map((ele,index)=>{
+                                return<li key={index} className={ele.checked?'xxb':'xx'}>
+                                    <input type="checkbox" checked={ele.checked} onClick={this.change.bind(this,index)}/>
+                                    <span>{ele.name}</span>
+                                    <button onClick={this.del.bind(this,index)}>删除</button>
+                                </li>
+                            })
+                        }
+                    </ul>
+                </div>
+            )
+        }
+    }
+    ReactDOM.render(
+        <Main></Main>,
+        document.getElementById('root')
+    );
+
+</script>
+</body>
+</html>
