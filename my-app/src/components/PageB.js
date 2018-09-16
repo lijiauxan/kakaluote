@@ -4,8 +4,7 @@ class PageA extends Component{
     render(){
         return(
             <div>
-                我是
-                {this.props.match.params.id}
+                我是B
             </div>
         )
     }
