@@ -1,0 +1,18 @@
+*{touch-action: none }
+.am-navbar-left, .am-navbar-title, .am-navbar-right{
+    flex:none;
+}
+.am-navbar-title{
+    flex:1;
+    background:#0086b3 ;
+}
+.am-search{
+    width:100%;
+    background: #0086b3 ;
+}
+.am-navbar,.am-navbar-dark{
+    background: #0086b3 ;
+}
+.am-search-cancel,.am-search-cancel-show,.am-search-cancel-anim{
+    color:#333333;
+}
