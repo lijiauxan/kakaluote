@@ -16,3 +16,36 @@
 .am-search-cancel,.am-search-cancel-show,.am-search-cancel-anim{
     color:#333333;
 }
+.am-grid-carousel-page{
+    height: 200px;
+}
+.am-flexbox,.am-flexbox-justify-center,.am-flexbox-align-stretch{
+    height:100px;
+}
+.am-flexbox,.am-flexbox-justi,.fy-center,.am-flexbox-align-stretch{
+    height:100px;
+}
+.img1{
+    width: 118px;
+    height:120px;
+}
+.content{
+    height:200px;
+}
+.content p{
+    text-align: center ;
+    height: 1px;
+}
+.content p:first-child {
+    font-size:16px;
+    color:#ff0000;
+    font-weight: bold;
+}
+span{
+    height: 10px;
+    font-size: 16px;
+    font-weight: revert  ;
+}
+.am-flexbox-item{
+    background: white ;
+}

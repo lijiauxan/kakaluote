@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        li{
+            list-style: none ;
+        }
+        #container {
+            width: 800px;
+            margin: 50px auto ;
+        }
+        .job{
+            background: #666666  ;
+            display: flex;
+        }
+        .job-li{
+            border: 1px solid black;
+            color: #eaffea;
+            height: 40px;
+            flex: 1;
+            line-height: 40px;
+            text-align: center ;
+        }
+        .ready-li{
+            border: 1px solid black;
+            color: #eaffea;
+            height: 40px;
+            width: 100px;
+            line-height: 40px;
+            text-align: center ;
+            float: left;
+            background: #0086b3 ;
+        }
+        .run-li{
+            border: 1px solid black;
+            color: #eaffea;
+            height: 40px;
+            width: 100px;
+            line-height: 40px;
+            text-align: center ;
+            float: left;
+            background: #55a532  ;
+        }
+        .block-li{
+            border: 1px solid black;
+            color: #eaffea;
+            height: 40px;
+            width: 100px;
+            line-height: 40px;
+            text-align: center ;
+            float: left;
+            background: #ff0036  ;
+        }
+        #ready,#run,#block{
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="container">
+        <ul class="job">
+            <li v-for="val in job" class="job-li">
+                {{val.num}}
+            </li>
+        </ul>
+        <div id="ready">
+            <h4>就绪态:</h4>
+            <ul class="ready">
+                <li v-for="val in ready" class="ready-li">
+                    {{val.num}}
+                </li>
+            </ul>
+        </div>
+        <div id="run">
+            <h4>执行态:</h4>
+            <ul class="run">
+                <li v-for="val in run" class="run-li">
+                    {{val.num}}
+                </li>
+            </ul>
+        </div>
+        <div id="block">
+            <h4>阻塞态:</h4>
+            <ul class="block">
+                <li v-for="val in block" class="block-li">
+                    {{val.num}}
+                </li>
+            </ul>
+        </div>
+        <button @click="create">高级调度</button>
+        <button @click="despatch">进程调度</button>
+        <button @click="block1">阻塞事件</button>
+        <button @click="wake">唤醒事件</button>
+        <button @click="time">时间片到</button>
+    </div>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            job: [
+                {
+                    num: "job_one"
+                },
+                {
+                    num: "job_two"
+                },
+                {
+                    num: "job_there"
+                },
+                {
+                    num: "job_four"
+                },
+                {
+                    num: "job_five"
+                },
+                {
+                    num: "job_six"
+                },],
+            ready: [],
+            run:[],
+            block:[]
+        },
+        methods: {
+            create() {
+                this.ready.push(this.job[0]);
+                this.job.splice(0,1);
+                if(this.run.length == 0){
+                    this.run.push(this.ready[0]);
+                    this.ready.splice(0,1);
+                }
+            },
+            despatch() {
+                if(this.run.length != 0){
+                    alert ("对不起，只能有一个进程处于执行态")
+                }else{
+                    this.run.push(this.ready[0])
+                    this.ready.splice(0,1);
+                }
+            },
+            block1() {
+                this.block.push(this.run[0]);
+                this.run.splice(0,1);
+                if(this.ready.length != 0){
+                    this.run.push(this.ready[0]);
+                    this.ready.splice(0,1);
+                }
+            },
+            wake() {
+                this.ready.push(this.block[0]);
+                this.block.splice(0,1);
+            },
+            time() {
+                this.ready.push(this.run[0]);
+                this.run.splice(0,1);
+                this.run.push(this.ready[0]);
+                this.ready.splice(0,1);
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
