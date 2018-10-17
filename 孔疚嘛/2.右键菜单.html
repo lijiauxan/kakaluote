@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        #menu{
+            width: 120px;
+            border: 1px solid black;
+
+            text-align: center ;
+            display: none;
+            position: absolute;
+            top: 0px;
+            left:0px;
+        }
+        #menu li{
+            height: 30px;
+            border-bottom: 1px solid #cccccc;
+            line-height: 30px;
+            list-style: none ;
+        }
+        #menu li:last-child {
+            border-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+<ul id="menu">
+    <li >属性</li>
+    <li >打开</li>
+    <li >粘贴</li>
+    <li >复制</li>
+    <li >下载</li>
+</ul>
+<script>
+    var myMenu = document.getElementById('menu');
+    document.oncontextmenu = function () {
+
+    }
+</script>
+</body>
+</html>
