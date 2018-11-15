@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="操作系统img/iconfont.css">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #img {
+            display: flex;
+            text-align: center;
+        }
+        #img div{
+            flex: 1;
+            color:#0086b3;
+        }
+        #img div span{
+            font-size: small;
+        }
+        #num{
+            display: flex;
+        }
+        #num div{
+            flex:1;
+            text-align: center;
+            font-size: small;
+            color: #666666;
+        }
+        #shuxian p{
+            margin: 0px;
+            color: #ff0036;
+        }
+        #shuxian{
+            display: flex;
+            text-align: center;
+        }
+        #shuxian div{
+            flex:1;
+        }
+        #k1{
+            height: 100px;
+            width: 360px;
+            background: #cccccc;
+            margin-left: 140px;
+
+        }
+        #k2{
+            height: 100px;
+            width: 260px;
+            background: #FFF38F;
+            margin-left: 150px;
+
+        }
+        #k3{
+            height: 100px;
+            width: 260px;
+            background: #eaffea;
+            margin-left: 70px;
+
+        }
+        #k1,#k2,#k3{
+            float: left;
+            position: relative;
+            color: #777777;
+        }
+        #shuxian1{
+            clear: both;
+        }
+        #shuxian1 div{
+            float: left;
+        }
+        .p1{
+            margin-left: 400px;
+            color: #ff0036;
+        }
+        .p2{
+            margin-left: 300px;
+            color: #ff0036;
+        }
+        .p3{
+            margin-left: 400px;
+            color: #ff0036;
+        }
+        #tong1{
+            width: 400px;
+            height: 100px;
+            background: #0086b3;
+            clear: both;
+            float: left;
+            margin-left: 370px;
+            color: #d2e5ff;
+        }
+        #tong2{
+            width: 300px;
+            height: 100px;
+            background: #795da3;
+            float: left;
+            margin-left: 160px;
+            color: #d2e5ff;
+        }
+        #btn{
+            clear: both;
+            display: flex;
+            text-align: center;
+        }
+        #btn div{
+            flex:1;
+        }
+        #kb{
+            height: 200px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <div id="img">
+        <div v-if="show1">
+            <i class="iconfont icon-shubiao"></i>
+            <span>m调用的进程:{{m}}</span>
+        </div>
+        <div v-if="show2">
+            <i class="iconfont icon-jianpan"></i>
+            <span>k调用的进程:{{k}}</span>
+        </div>
+        <div v-if="show3">
+            <i class="iconfont icon-print__easyic"></i>
+            <span>p调用的进程:{{p}}</span>
+        </div>
+       <div v-if="show4">
+           <i class="iconfont icon-iconfont-zhutizuizhong-"></i>
+           <span>d调用的进程:{{d}}</span>
+       </div>
+    </div>
+    <div id="num">
+        <div v-if="show1">
+            <p>重复次数:{{num1}}</p>
+            <p>状态:{{state1}}</p>
+            <p>阻塞队列:{{z1}}</p>
+        </div>
+        <div v-if="show2">
+            <p>重复次数:{{num2}}</p>
+            <p>状态:{{state2}}</p>
+            <p>阻塞队列:{{z2}}</p>
+        </div>
+        <div v-if="show3">
+            <p>重复次数:{{num3}}</p>
+            <p>状态:{{state3}}</p>
+            <p>阻塞队列:{{z3}}</p>
+        </div>
+        <div v-if="show4">
+            <p>重复次数:{{num4}}</p>
+            <p>状态:{{state4}}</p>
+            <p>阻塞队列:{{z4}}</p>
+        </div>
+    </div>
+    <div id="shuxian">
+        <div v-if="show1">
+            <p v-for="val in 4">|</p>
+
+        </div>
+        <div v-if="show2">
+            <p v-for="val in 4">|</p>
+        </div>
+        <div v-if="show3">
+            <p v-for="val in 4">|</p>
+        </div>
+        <div v-if="show4">
+            <p v-for="val in 4">|</p>
+        </div>
+    </div>
+    <div id="k1">
+        <h5>控制器:1</h5>
+        <p>状态:{{state11}}</p>
+        <p>阻塞队列:{{k1}}</p>
+    </div>
+    <div id="k2">
+        <h5>控制器:2</h5>
+        <p>状态:{{state22}}</p>
+        <p>阻塞队列:{{k2}}</p>
+    </div>
+    <div id="k3">
+        <h5>控制器:3</h5>
+        <p>状态:{{state33}}</p>
+        <p>阻塞队列:{{k3}}</p>
+    </div>
+    <div id="shuxian1">
+       <div>
+           <p v-for="val in 3" class="p1">|</p>
+       </div>
+        <div>
+            <p v-for="val in 3" class="p2">|</p>
+        </div>
+        <div>
+            <p v-for="val in 3" class="p3">|</p>
+        </div>
+    </div>
+    <div id="tong1">
+        <h5>通道1</h5>
+        <p>状态:{{state111}}</p>
+        <p>阻塞:{{t1}}</p>
+    </div>
+    <div id="tong2">
+        <h5>通道2</h5>
+        <p>状态:{{state222}}</p>
+        <p>阻塞:{{t2}}</p>
+    </div>
+    <div id="kb">
+
+    </div>
+    <div id="btn">
+        <div>
+            <input type="text" v-model="val3">
+            <button @click="add">添加设配</button>
+        </div>
+        <div>
+            <input type="text"  v-model="val2">
+            <button @click="sub">删除设配</button>
+        </div>
+        <div>
+            <input type="text"  v-model="val1">
+            <button @click="sq">申请设备</button>
+        </div>
+        <div>
+            <input type="text"  v-model="val4">
+            <button @click="hs">回收设配</button>
+        </div>
+    </div>
+</div>
+<script src="vue.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            num1:0,
+            num2:0,
+            num3:0,
+            num4:0,
+            state1:'未被调用',
+            state2:'未被调用',
+            state3:'未被调用',
+            state4:'未被调用',
+            state11:'未被调用',
+            state22:'未被调用',
+            state33:'未被调用',
+            state111:'未被调用',
+            state222:'未被调用',
+            m:'',
+            k:'',
+            p:'',
+            d:'',
+            k1:'',
+            k2:'',
+            k3:'',
+            t1:'',
+            t2:'',
+            z1:'',
+            z2:'',
+            z3:'',
+            z4:'',
+            val1:'',
+            val2:'',
+            val3:'',
+            val4:'',
+            show1:false,
+            show2:false,
+            show3:false,
+            show4:false,
+        },
+        methods:{
+            sq() {
+
+                if (this.val1.charAt(0) == 'm') {
+                    if (this.m == '') {
+                        this.m = this.val1.charAt(1) + this.val1.charAt(2);
+                        this.num1++;
+                        this.state1 = '已被调用';
+                        if (this.state11 == '未被调用') {
+                            this.state11 = '已被调用';
+                            if (this.state111 == '未被调用') {
+                                this.state111 = '已被调用'
+                            } else {
+                                this.t1 = this.val1.charAt(1) + this.val1.charAt(2);
+                            }
+                        } else {
+                            this.k1 = this.val1.charAt(1) + this.val1.charAt(2);
+                        }
+                    } else {
+                        this.z1 = this.val1.charAt(1) + this.val1.charAt(2);
+                    }
+                }
+
+                else if (this.val1.charAt(0) == 'k') {
+                    if (this.k == '') {
+                        this.k = this.val1.charAt(1) + this.val1.charAt(2);
+                        this.num2++;
+                        this.state2 = '已被调用';
+                        if (this.state11 == '未被调用') {
+                            this.state11 = '已被调用';
+                            if (this.state222 == '未被调用') {
+                                this.state222 = '已被调用'
+                            } else {
+                                this.t1 = this.val1.charAt(1) + this.val1.charAt(2);
+                            }
+                        } else {
+                            this.k1 = this.val1.charAt(1) + this.val1.charAt(2);
+                        }
+                    } else {
+                        this.z2 = this.val1.charAt(1) + this.val1.charAt(2);
+                    }
+                }
+
+                else if (this.val1.charAt(0) == 'p') {
+                    if (this.p == '') {
+                        this.p = this.val1.charAt(1) + this.val1.charAt(2);
+                        this.num3++;
+                        this.state3 = '已被调用';
+                        if (this.state22 == '未被调用') {
+                            this.state22 = '已被调用';
+                            if (this.state111 == '未被调用') {
+                                this.state111 = '已被调用'
+                            } else {
+                                this.t1 = this.val1.charAt(1) + this.val1.charAt(2);
+                            }
+                        } else {
+                            this.k2 = this.val1.charAt(1) + this.val1.charAt(2);
+                        }
+                    } else {
+                        this.z3 = this.val1.charAt(1) + this.val1.charAt(2);
+                    }
+                }
+                else {
+                    if (this.d == '') {
+                        this.d = this.val1.charAt(1) + this.val1.charAt(2);
+                        this.num4++;
+                        this.state4 = '已被调用';
+                        if (this.state33 == '未被调用') {
+                            this.state33 = '已被调用';
+                            if (this.state222 == '未被调用') {
+                                this.state222 = '已被调用'
+                            } else {
+                                this.t2 = this.val1.charAt(1) + this.val1.charAt(2);
+                            }
+                        } else {
+                            this.k3 = this.val1.charAt(1) + this.val1.charAt(2);
+                        }
+                    } else {
+                        this.z4 = this.val1.charAt(1) + this.val1.charAt(2);
+                    }
+                }
+
+            },
+            add() {
+                if (this.val3.charAt(0) == 'm') {
+                    this.show1 = true;
+                } else if (this.val3.charAt(0) == 'k') {
+                    this.show2 = true;
+                } else if (this.val3.charAt(0) == 'p') {
+                    this.show3 = true;
+                } else {
+                    this.show4 = true;
+                }
+            },
+            sub() {
+                if (this.val2.charAt(0) == 'm') {
+                    this.show1 = false;
+                } else if (this.val2.charAt(0) == 'k') {
+                    this.show2 = false;
+                } else if (this.val2.charAt(0) == 'p') {
+                    this.show3 = false;
+                } else {
+                    this.show4 = false;
+                }
+            },
+            hs(){
+                console.log(1);
+                if (this.val4.charAt(0) == 'm') {
+                    if (this.val4.charAt(1) + this.val4.charAt(2) == this.t1) {
+                        this.t1 = '';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.k1){
+                        this.k1='';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.z1){
+                       this.z1 = '';
+                    }else{
+                        if(this.t1 != ''){
+                            this.t1 = '';
+                        }else if(this.k1 != ''){
+                            this.k1 = '';
+                        }else if(this.z1 != ''){
+                            this.m = this.z1;
+                            this.z1 = '';
+
+                        }else{
+                            this.m ='';
+                            this.state1 = '未被调用';
+                            this.state11 = '未被调用';
+                            this.state111 = '未被调用';
+                        }
+                    }
+                }
+
+
+                else if(this.val4.charAt(0) == 'k'){
+                    if (this.val4.charAt(1) + this.val4.charAt(2) == this.t1) {
+                        this.t1 = '';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.k1){
+                        this.k1='';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.z2){
+                        this.z2 = '';
+                    }else{
+                        if(this.t1 != ''){
+                            this.t1 = '';
+                        }else if(this.k1 != ''){
+                            this.k1 = '';
+                        }else if(this.z2 != ''){
+                            this.z2 = '';
+                        }else{
+                            this.k ='';
+                            this.state2 = '未被调用';
+                            this.state11 = '未被调用';
+                            this.state111 = '未被调用';
+                        }
+                    }
+                }
+
+                else if(this.val4.charAt(0) == 'p'){
+                    if (this.val4.charAt(1) + this.val4.charAt(2) == this.t1) {
+                        this.t1 = '';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.k2){
+                        this.k2='';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.z3){
+                        this.z3 = '';
+                    }else{
+                        if(this.t1 != ''){
+                            this.t1 = '';
+                        }else if(this.k2 != ''){
+                            this.k2 = '';
+                        }else if(this.z3 != ''){
+                            this.z3 = '';
+                        }else{
+                            this.p ='';
+                            this.state3 = '未被调用';
+                            this.state22 = '未被调用';
+                            this.state111 = '未被调用';
+                        }
+                    }
+                }
+
+                else{
+                    if (this.val4.charAt(1) + this.val4.charAt(2) == this.t2) {
+                        this.t2 = '';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.k3){
+                        this.k3='';
+                    }else if(this.val4.charAt(1) + this.val4.charAt(2) == this.z4){
+                        this.z4 = '';
+                    }else{
+                        if(this.t2 != ''){
+                            this.t2 = '';
+                        }else if(this.k3 != ''){
+                            this.k3 = '';
+                        }else if(this.z4 != ''){
+                            this.z4 = '';
+                        }else{
+                            this.d ='';
+                            this.state4 = '未被调用';
+                            this.state33 = '未被调用';
+                            this.state222 = '未被调用';
+                        }
+                    }
+                }
+            }
+
+
+        }
+    });
+</script>
+</body>
+</html>

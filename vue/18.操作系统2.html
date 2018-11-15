@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+    #Lru,#Fifo{
+        display: flex;
+        flex:1;
+    }
+    #Lru div,#Fifo div{
+        flex:1;
+    }
+    #container{
+        display: flex;
+    }
+    .lru{
+        margin-right: 600px;
+    }
+    .w1{
+        margin-right: 387px;
+    }
+    .nck{
+        margin-right: 560px;
+    }
+    .num{
+        margin-right: 620px;
+    }
+    .gqy{
+        margin-right: 560px;
+    }
+    .gqy1{
+        margin-right: 528px;
+    }
+    /*.lru1,.fifo1{*/
+        /*width: 100px;*/
+    /*}*/
+    #pp{
+        display: flex;
+    }
+    #pp div{
+        flex:1;
+    }
+</style>
+<body>
+<div id="app">
+
+  <div id="container_">
+      <span>请输入页面长度:</span><br/>
+      <input type="text" v-model="ymcd"><br/>
+      <span>请输入可用内存数:</span><br/>
+      <input type="text" v-model="ncs"><br/>
+      <span>请输入块长:</span><br/>
+      <input type="text" v-model="kc"><br/>
+      <span>请输入逻辑地址：</span> <br/>
+      <input type="text" v-model="val"><br/>
+      <button @click="show">确定</button><br/>
+      <button @click="again">再次输入</button><br/>
+
+
+<div v-show="flag">
+    <span class="lru">LRU</span><span>FIFO</span><br/>
+    <span>物理地址:</span>
+    <input type="text" class="w1" v-model="wldz">
+    <span>物理地址:</span>
+    <input type="text" v-model="wldz"><br/>
+    <span>页表：</span><br/>
+    <div id="container">
+        <div id="Lru">
+            <div>
+                <p>页号：</p>
+                <p v-for="val in arr">{{val}}</p>
+            </div>
+            <div>
+                <p>块号：</p>
+                <p v-for="val in str">{{val}}</p>
+            </div>
+            <div>
+                <p>状态位</p>
+                <p v-for="val in ztw">{{val}}</p>
+            </div>
+        </div>
+        <div id="Fifo">
+            <div>
+                <p>页号：</p>
+                <p v-for="val in arr">{{val}}</p>
+            </div>
+            <div>
+                <p>块号：</p>
+                <p v-for="val in str">{{val}}</p>
+            </div>
+            <div>
+                <p>状态位</p>
+                <p v-for="val in ztw">{{val}}</p>
+            </div>
+        </div>
+    </div>
+    <span class="nck">内存块：</span>
+    <span>内存块：</span><br/>
+    <div id="pp">
+        <div>
+            <p v-for="val in lru" class="lru1">{{val}}</p>
+        </div>
+        <div>
+            <p v-for="val in FIFO" class="fifo1">{{val}}</p>
+        </div>
+    </div>
+    <p>-----------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+    <p>第{{msg}}次访问</p>
+    <!--<span>共缺页：</span><span class="gqy">1</span><span>1</span><br/>-->
+    <!--<span>缺页率：</span><span class="gqy1">100%</span><span>100%</span>-->
+</div>
+  </div>
+</div>
+<script src="vue.js"></script>
+<script>
+var vm = new Vue({
+    el:'#app',
+    data:{
+        val : '',
+        ncs:'',
+        ymcd:'5',
+        kc:'',
+        flag:false,
+        arr:[],
+        str:[-1,-1,-1,-1,-1],
+        wldz:'',
+        ztw:[0,0,0,0,0],
+        lru:[-1,-1,-1],
+        FIFO:[-1,-1,-1],
+        msg:0,
+        xxx:'',
+        aaa:''
+    },
+    methods:{
+       show(){
+           this.flag = true ;
+           for(let i=0;i<this.ymcd*1;i++){
+              this.arr.push(i);
+           }
+           let num = Math.floor(this.val / 1024) ;
+           this.xxx = num ;
+           this.aaa = Math.floor(Math.random()*10+1);
+           this.str[num]=this.aaa;
+           this.wldz = this.str[num] * 1024 + (this.val % 1024);
+           this.ztw[num]= 1;
+           this.lru[this.lru.length-1]=num;
+           this.FIFO[this.FIFO.length-1]=num;
+           this.msg+=1;
+       },
+       again(){
+           this.msg+=1;
+           var num = Math.floor(this.val / 1024) ;
+           // if(this.xxx == num){
+           //
+           // }else{
+           //     let a = Math.ceil(Math.random()*10+this.aaa);
+           //     this.aaa = a;
+           //     this.str[num] = this.aaa;
+           //     this.xxx = num;
+           // }
+           // this.str[num]=Math.floor(Math.random()*10);
+           this.wldz = this.str[num] * 1024 + (this.val % 1024);
+           this.ztw[num]= 1;
+           var flag = true;
+           var sum = 0;
+           var cz = true;
+           var msg = -1;
+           var flag1 = true;
+           var sum1 = 0;
+           var cz1 = true;
+           var msg1 = -1;
+           for (let i = 0; i < this.lru.length - 1; i++) {
+               if (this.lru[i] == -1) {
+                   sum++
+               }
+           }
+           if (sum == 0) {
+               for (let i = this.lru.length - 1; i >= 0; i--) {
+                   if (this.lru[i] == num && cz == true) {
+                       msg = i;
+                       cz = false;
+                   }
+               }
+               ;
+               if (cz) {
+                   this.str[this.lru[0]] = -1;
+                   let a = Math.ceil(Math.random()*10+this.aaa);
+                   this.aaa = a;
+                   this.str[num] = this.aaa;
+                   for (let i = this.lru.length - 1; i > 0; i--) {
+                       this.lru[i] = this.lru[i - 1];
+                   }
+                   this.lru[0] = num;
+                   this.xxx = num;
+
+               } else {
+                   if (msg== 0) {
+
+                   } else if (msg == 1) {
+                       let a = this.lru[0];
+                       this.lru[0] = this.lru[1];
+                       this.lru[1] = a;
+                   } else if (msg == 2) {
+                       let b = this.lru[2];
+                       this.lru[2] = this.lru[1];
+                       this.lru[1] = this.lru[0];
+                       this.lru[0] = b;
+                   }
+               }
+           }
+           else {
+               let a = Math.ceil(Math.random()*10+this.aaa);
+               this.aaa = a;
+               this.str[num] = this.aaa;
+               for (let i = this.lru.length - 1; i >= 0; i--) {
+                   if (this.lru[i] == -1 && flag == true) {
+                       this.lru[i] = num;
+                       flag = false;
+                   }
+               };
+
+           }
+
+
+
+
+
+
+
+
+           for (let i = 0; i < this.FIFO.length - 1; i++) {
+               if (this.FIFO[i] == -1) {
+                   sum1++
+               }
+           }
+           if (sum1 == 0) {
+               for (let i = this.FIFO.length - 1; i >= 0; i--) {
+                   if (this.FIFO[i] == num && cz1 == true) {
+                       msg1 = i;
+                       cz1 = false;
+                   }
+               };
+               if (cz1) {
+                   this.str[this.lru[0]] = -1;
+                   let a = Math.ceil(Math.random()*10+this.aaa);
+                   this.aaa = a;
+                   this.str[num] = this.aaa;
+                   for (let i = this.FIFO.length - 1; i > 0; i--) {
+                       this.FIFO[i] = this.FIFO[i - 1];
+                   }
+                   this.FIFO[0] = num;
+               } else {
+                   console.log(11);
+               }
+               //     if (msg1== 0) {
+               //
+               //     } else if (msg1 == 1) {
+               //         let a = this.FIFO[0];
+               //         this.FIFO[0] = this.FIFO[1];
+               //         this.FIFO[1] = a;
+               //     } else if (msg1 == 2) {
+               //         let b = this.FIFO[2];
+               //         this.FIFO[2] = this.FIFO[1];
+               //         this.FIFO[1] = this.FIFO[0];
+               //         this.FIFO[0] = b;
+               //     }
+               // }
+           }
+           else {
+               let a = Math.ceil(Math.random()*10+this.aaa);
+               this.aaa = a;
+               this.str[num] = this.aaa;
+               for (let i = this.FIFO.length - 1; i >= 0; i--) {
+                   if (this.FIFO[i] == -1 && flag1 == true) {
+                       this.FIFO[i] = num;
+                       flag1 = false;
+                   }
+               };
+           }
+       }
+    }
+});
+
+
+</script>
+</body>
+</html>
