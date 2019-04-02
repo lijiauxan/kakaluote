@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #container{
+            width: 300px;
+            height: 305px;
+            margin: 20px auto;
+            position: relative;
+            /*visibility: hidden;*/
+        }
+        /*div:not( #container){*/
+            /*float: left;*/
+            /*text-align: center;*/
+        /*}*/
+
+        .bk{
+            height: 60px;
+            width: 60px;
+        }
+        #div1,#div6,#div11,#div16,#div21{
+            background: #cccccc;
+            border-bottom: 1px solid black;
+            float: left;
+            text-align: center;
+            /*visibility: hidden;*/
+        }
+        #div2,#div7,#div12,#div17,#div22{
+            background:#888888  ;
+            border-bottom: 1px solid black;
+            float: left;
+            text-align: center;
+            /*visibility: hidden;*/
+        }
+        #div3,#div8,#div13,#div18,#div23{
+            background: #666666 ;
+            border-bottom: 1px solid black;
+            float: left;
+            text-align: center;
+            /*visibility: hidden;*/
+        }
+        #div4,#div9,#div14,#div19,#div24{
+            background: #404040 ;
+            border-bottom: 1px solid black;
+            float: left;
+            text-align: center;
+            /*visibility: hidden;*/
+        }
+        #div5,#div10,#div15,#div20,#div25{
+            background: #333333 ;
+            border-bottom: 1px solid black;
+            float: left;
+            text-align: center;
+                /*visibility: hidden;*/
+        }
+        h4{
+            display: inline-block;
+            line-height: 60px;
+
+        }
+        .ipt{
+            margin-left: 510px;
+            margin-top: 50px;
+            color: cadetblue;
+        }
+        input{
+            border: 1px solid #0086b3;
+            margin-right: 20px;
+        }
+        #content{
+            margin-left: 510px;
+            color: cadetblue;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div id="container">
+        <div id="div1" class="bk">
+            <h4>{{arr[0]}}</h4>
+        </div>
+        <div id="div2" class="bk">
+            <h4>{{arr[1]}}</h4>
+        </div>
+        <div id="div3" class="bk">
+            <h4>{{arr[2]}}</h4>
+        </div>
+        <div id="div4" class="bk">
+            <h4>{{arr[3]}}</h4>
+        </div>
+        <div id="div5" class="bk">
+            <h4>{{arr[4]}}</h4>
+        </div>
+        <div id="div6" class="bk">
+            <h4>{{arr[5]}}</h4>
+        </div>
+        <div id="div7" class="bk">
+            <h4>{{arr[6]}}</h4>
+        </div>
+        <div id="div8" class="bk">
+            <h4>{{arr[7]}}</h4>
+        </div>
+        <div id="div9" class="bk">
+            <h4>{{arr[8]}}</h4>
+        </div>
+        <div id="div10" class="bk">
+            <h4>{{arr[9]}}</h4>
+        </div>
+        <div id="div11" class="bk">
+            <h4>{{arr[10]}}</h4>
+        </div>
+        <div id="div12" class="bk">
+            <h4>{{arr[11]}}</h4>
+        </div>
+        <div id="div13" class="bk">
+            <h4>{{arr[12]}}</h4>
+        </div>
+        <div id="div14" class="bk">
+            <h4>{{arr[13]}}</h4>
+        </div>
+        <div id="div15" class="bk">
+            <h4>{{arr[14]}}</h4>
+        </div>
+        <div id="div16" class="bk">
+            <h4>{{arr[15]}}</h4>
+        </div>
+        <div id="div17" class="bk">
+            <h4>{{arr[16]}}</h4>
+        </div>
+        <div id="div18" class="bk">
+            <h4>{{arr[17]}}</h4>
+        </div>
+        <div id="div19" class="bk">
+            <h4>{{arr[18]}}</h4>
+        </div>
+        <div id="div20" class="bk">
+            <h4>{{arr[19]}}</h4>
+        </div>
+        <div id="div21" class="bk">
+            <h4>{{arr[20]}}</h4>
+        </div>
+        <div id="div22" class="bk">
+            <h4>{{arr[21]}}</h4>
+        </div>
+        <div id="div23" class="bk">
+            <h4>{{arr[22]}}</h4>
+        </div>
+        <div id="div24" class="bk">
+            <h4>{{arr[23]}}</h4>
+        </div>
+        <div id="div25" class="bk">
+            <h4>{{arr[24]}}</h4>
+        </div>
+    </div>
+    <div class="ipt">
+        <span>请输入秘钥:</span>
+        <input type="text" v-model="val" @keyup="show" @blur="add">
+    </div>
+    <div id="content">
+        <div>
+            <span>请输入明文:</span>
+            <input type="text" v-model="msg" @blur="mingw">
+            <span>请输入密文:</span>
+            <input type="text" v-model="msg1" @blur="mingw1">
+        </div>
+        <div>
+            <span>对应的密文:</span>
+            <input type="text" v-model="miw">
+            <span>对应的明文:</span>
+            <input type="text" v-model="miw1">
+        </div>
+    </div>
+</div>
+<script src="vue.js"></script>
+<script>
+  var vm = new Vue({
+      el:'#app',
+      data: {
+          val: "",
+          msg:'',
+          msg1:'',
+          miw:'',
+          miw1:'',
+          arr: [],
+          mingwen:[],
+          i:0
+      },
+      methods: {
+          show() {
+              var flag = true;
+              if(this.arr.length) {
+                  for (let i = 0; i < this.arr.length; i++) {
+                      if (this.arr[i] == this.val.charAt(this.i)) {
+                          flag = false;
+                          this.i++;
+                      }
+                  }
+              }
+              if(flag){
+                  if(this.val.charAt(this.i)=='i' || this.val.charAt(this.i)=='j' ){
+                      this.arr.push('i/j');
+                      this.i++;
+                  }else{
+                      this.arr.push(this.val.charAt(this.i));
+                      this.i++;
+                  }
+              }
+          },
+          add(){
+              this.arr.push('a');
+              this.arr.push('b');
+              this.arr.push('c');
+              this.arr.push('d');
+              this.arr.push('e');
+              this.arr.push('f');
+              this.arr.push('g');
+              this.arr.push('h');
+              this.arr.push('i/j');
+              this.arr.push('k');
+              this.arr.push('l');
+              this.arr.push('m');
+              this.arr.push('n');
+              this.arr.push('o');
+              this.arr.push('p');
+              this.arr.push('q');
+              this.arr.push('r');
+              this.arr.push('s');
+              this.arr.push('t');
+              this.arr.push('u');
+              this.arr.push('v');
+              this.arr.push('w');
+              this.arr.push('x');
+              this.arr.push('y');
+              this.arr.push('z');
+              var set = new Set(this.arr);
+              var newArr = Array.from(set);
+              this.arr = newArr;
+              // console.log(this.arr);
+          },
+          mingw(){
+              for(var i=0;i<this.msg.length;i++){
+                  this.mingwen.push(this.msg.charAt(i));
+              }
+              for(let i=0;i<this.mingwen.length-1;i++){
+                  if(this.mingwen[i]==this.mingwen[i+1]){
+                      var a = this.mingwen[i];
+                      this.mingwen.splice(i,1,a,'x');
+                      // console.log(this.mingwen);
+                  }
+              }
+              if(this.mingwen.length%2 == 1){
+                  this.mingwen.push('x');
+                  // console.log(this.mingwen);
+              }
+              for(var i=0;i<this.mingwen.length-1;i+=2){
+                  var strArr = this.arr.join("");
+                  var p1 = strArr.indexOf(this.mingwen[i]);
+                  var p2 = strArr.indexOf(this.mingwen[i+1]);
+                  if(p2>12){
+                     p2 = p2-2;
+                  }
+                  if(p2 == 12){
+                      p2 = 10;
+                  }
+                  if(p1>12){
+                      p1 = p1-2;
+                  }
+                  if(p1 == 12){
+                      p1 = 10;
+                  }
+                    // w = 23;   // i/j  10 11 12
+                 if(p1>=0&&p1<=4&&p2>=0&&p2<=4||(5<=p1&&p1<=9&&5<=p2&&p2<=9)||(10<=p1&&p1<=14&&10<=p2&&p2<=14)||(15<=p1&&p1<=19&&15<=p2&&p2<=19)||(20<=p1&&p1<=24&&20<=p2&&p2<=24)){
+                       if(p2==4 ||p2==9||p2==14||p2==19||p2==24){
+                           p2 = p2-5;
+                       }else if(p1==4 ||p1==9||p1==14||p1==19||p1==24){
+                           p1 = p1-5;
+                       }
+                     this.miw = this.miw.concat(this.arr[p1+1],this.arr[p2+1]);
+                     console.log(111);
+                 }else if(p2-p1 == 5||p2-p1 == 10||p2-p1 == 15||p2-p1 == 20||p2-p1 == -5||p2-p1 == -10||p2-p1 == -15||p2-p1 == -20){
+                     console.log(11);
+                     if(p2==20 ||p2==21||p2==22||p2==23||p2==24){
+                         p2 = p2-25;
+                     }else if(p1==20 ||p1==21||p1==22||p1==23||p1==24){
+                         p1 = p1-25;
+                     }
+                     this.miw = this.miw.concat(this.arr[p1+5],this.arr[p2+5]);
+                     console.log(222);
+                 }else{
+                      if(p1<p2){
+                          console.log(p1,p2);
+                          console.log(this.miw);
+                          if(p1>=0&&p1<=4){
+                              if(p2>=5&&p2<=9){
+                                  p1 = p1 + 5;
+                                  console.log(11111+p1);
+                              }
+                              if(p2>=10&&p2<=14){
+                                  p1 = p1 + 10;
+                              }
+                              if(p2>=15&&p2<=19){
+                                  p1 = p1 + 15;
+                              }
+                              if(p2>=20&&p2<=24){
+                                  p1 = p1 + 20;
+                              }
+                              p2 = p2%5;
+                              this.miw = this.miw.concat(this.arr[p1],this.arr[p2]);
+                              console.log(this.miw);
+                          }else if(p1>=5&&p1<=9){
+                              if(p2>=10&&p2<=14){
+                                  p1 = p1 + 5;
+                              }
+                              if(p2>=15&&p2<=19){
+                                  p1 = p1 + 10;
+                              }
+                              if(p2>=20&&p2<=24){
+                                  p1 = p1 + 15;
+                              }
+                              p2 = p2%5+5;
+
+                              this.miw = this.miw.concat(this.arr[p1],this.arr[p2]);
+                              console.log(111);
+                          }
+                          else if(p1>=10&&p1<=14){
+                              console.log(p1,p2);
+                              if(p2>=15&&p2<=19){
+                                  p1 = p1 + 5;
+                              }
+                              if(p2>=20&&p2<=24){
+                                  p1 = p1 + 10;
+                                  console.log(1111111,p1);
+                              }
+                              p2 = p2%5+10;
+                              this.miw = this.miw.concat(this.arr[p1],this.arr[p2]);
+                              console.log(222);
+                          }
+                          else if(p1>=15&&p1<=19){
+                              if(p2>=20&&p2<=24){
+                                  p1 = p1 + 5;
+                              }
+                              p2 = p2%5+5;
+                              this.miw = this.miw.concat(this.arr[p1],this.arr[p2]);
+                              console.log(333);
+                          }
+                      }else{
+
+                      }
+                 }
+                 // if(){
+                 //
+                 // }
+              }
+          },
+          mingw1(){
+              if(this.msg1 == this.miw){
+                  this.miw1 = this.msg;
+              }
+          }
+      }
+  });
+</script>
+</body>
+</html>
